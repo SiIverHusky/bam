@@ -45,6 +45,7 @@ identification = [
     "zmq",
     "protobuf>=3.20,<4.0",
     "dynamixel_sdk",
+    "pyserial",
     "rustypot>=1.5.0",
     "optuna",
     "cmaes",
