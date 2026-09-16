@@ -12,5 +12,6 @@ docs/_build/
 docs/autoapi/
 data_raw/
 data_processed/
+data_logging/
 uv.lock
 notes.md

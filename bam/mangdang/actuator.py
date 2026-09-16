@@ -47,7 +47,7 @@ class MD01Actuator(VoltageControlledActuator):
             error_gain=0.0104,
             # Maximum duty-cycle magnitude; inherited from the measurements on
             # the other BAM voltage-controlled servos — TODO(md01): measure.
-            max_pwm=0.97,
+            max_pwm=1.0,
             # Firmware current limit [A]. The AT32 reads the torque field of a
             # position command as a max current cap, so this is a real cap; it
             # is conservative until the MD01 rating is confirmed.
@@ -56,16 +56,16 @@ class MD01Actuator(VoltageControlledActuator):
 
     def initialize(self):
         # Torque constant [Nm/A] or [V/(rad/s)] — TODO: datasheet.
-        self.model.kt = Parameter(0.0, 0.0, 1.0)  # TODO
+        self.model.kt = Parameter(0.223, 0.0, 1.0) 
 
         # Motor resistance [Ohm]; often estimable as vin / I_stall — TODO.
         self.model.R = Parameter(1.0, 0.0, 10.0)  # TODO
 
         # Rotor / apparent inertia [kg m^2] — TODO: datasheet or fit seed.
-        self.model.armature = Parameter(0.0001, 0.00001, 0.04)  # TODO
+        self.model.armature = Parameter(0.00005, 0.00001, 0.04) 
 
         # Optional: fit a ratio on top of error_gain (see ST3025Actuator).
-        self.model.error_gain_ratio = Parameter(1.0, 0.1, 10.0)
+        # self.model.error_gain_ratio = Parameter(1.0, 0.1, 10.0)
 
     def load_log(self, log: dict):
         """Load per-log settings, tolerating the recorder's extra metadata.

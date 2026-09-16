@@ -58,7 +58,7 @@ from bam.trajectory import trajectories
 
 #: Fraction of the PWM range the controller is assumed to reach, inherited from
 #: the measurements on the other BAM voltage-controlled servos.
-DEFAULT_MAX_PWM = 0.97
+DEFAULT_MAX_PWM = 1.0
 
 #: Position-error to duty-cycle gain, matching ``MD01Actuator``. Measured with
 #: an oscilloscope (``ADDING_A_MOTOR.md`` §3.2); the default is inherited from
