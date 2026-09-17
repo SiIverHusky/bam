@@ -7,6 +7,7 @@
 #     http://www.apache.org/licenses/LICENSE-2.0
 
 import argparse
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -32,6 +33,19 @@ arg_parser.add_argument(
     dest="sim_mjlab",
     action="store_true",
     help="Same as --sim but rolls out with the mjlab (MuJoCo Warp / GPU) simulator backend",
+)
+arg_parser.add_argument(
+    "--save-dir",
+    dest="save_dir",
+    type=str,
+    default=None,
+    help="Write one PNG per log into this directory instead of opening a window",
+)
+arg_parser.add_argument(
+    "--dpi",
+    type=int,
+    default=150,
+    help="Resolution of the saved figures (default 150, ignored without --save-dir)",
 )
 args = arg_parser.parse_args()
 
@@ -168,4 +182,19 @@ for log in logs.logs:
         plt.xlabel("time [s]")
 
     plt.grid()
-    plt.show()
+
+    if args.save_dir:
+        os.makedirs(args.save_dir, exist_ok=True)
+        stem = os.path.splitext(os.path.basename(log["filename"]))[0]
+        name = (
+            f"{stem}_{log['motor']}_{log['trajectory']}"
+            f"_m{log['mass']}_l{log['length']}_k{log['kp']}.png"
+        )
+        path = os.path.join(args.save_dir, name)
+        f.savefig(path, dpi=args.dpi, bbox_inches="tight")
+        # Close eagerly: without --save-dir every figure would stay alive until
+        # the end of the run, which is a lot of open figures on a full dataset.
+        plt.close(f)
+        print(f"  saved -> {path}")
+    else:
+        plt.show()
