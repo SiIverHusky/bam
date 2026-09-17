@@ -57,7 +57,7 @@ arg_parser.add_argument(
 args = arg_parser.parse_args()
 
 #: P-gain sweep. At least one value is held out for validation in bam.fit.
-KPS = [8, 16, 24, 32]
+KPS = [60, 80, 100, 120, 140]
 
 #: Trajectory sweep, restricted to the names registered in bam.trajectory.
 trajectories = [

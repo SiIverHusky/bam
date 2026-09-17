@@ -40,7 +40,7 @@ class MD01Actuator(VoltageControlledActuator):
             # with the bench supply's real output when assembling a dataset.
             vin=12.0,
             # Default firmware P-gain, overridden per log by ``load_log``.
-            kp=32.0,
+            kp=80.0,
             # Converts kp * Δq into a duty cycle in [-1, 1]. Measured with an
             # oscilloscope (ADDING_A_MOTOR.md §3.2); the recorder starts from
             # the same value and passes it through as log metadata.
@@ -59,10 +59,10 @@ class MD01Actuator(VoltageControlledActuator):
         self.model.kt = Parameter(0.223, 0.0, 1.0) 
 
         # Motor resistance [Ohm]; often estimable as vin / I_stall — TODO.
-        self.model.R = Parameter(1.0, 0.0, 10.0)  # TODO
+        self.model.R = Parameter(8.5, 7.5, 9.5)  # TODO
 
         # Rotor / apparent inertia [kg m^2] — TODO: datasheet or fit seed.
-        self.model.armature = Parameter(0.00005, 0.00001, 0.04) 
+        self.model.armature = Parameter(2.25e4, 1.1e4, 6.8e4) 
 
         # Optional: fit a ratio on top of error_gain (see ST3025Actuator).
         # self.model.error_gain_ratio = Parameter(1.0, 0.1, 10.0)
