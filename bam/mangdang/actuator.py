@@ -62,7 +62,7 @@ class MD01Actuator(VoltageControlledActuator):
         self.model.R = Parameter(8.5, 7.5, 9.5)  # TODO
 
         # Rotor / apparent inertia [kg m^2] — TODO: datasheet or fit seed.
-        self.model.armature = Parameter(2.25e4, 1.1e4, 6.8e4) 
+        self.model.armature = Parameter(2.25e-4, 1.1e-4, 6.8e-4) 
 
         # Optional: fit a ratio on top of error_gain (see ST3025Actuator).
         # self.model.error_gain_ratio = Parameter(1.0, 0.1, 10.0)
